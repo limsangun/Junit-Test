@@ -94,4 +94,32 @@ public class BookRepositoryTest {
 		// then				
 		assertFalse(bookRepository.findById(id).isPresent());
 	}
+	
+	// 5. 책 수정
+	@Sql("classpath:db/tableInit.sql")
+	@Test
+	public void 책수정_test() {
+		// given
+		Long id = 1L;
+		String title = "junit5";
+		String author = "메타코딩";
+		Book book = new Book(id, title, author);
+		
+		// when
+		Book bookPS = bookRepository.save(book);
+		
+		// then				
+		bookRepository.findAll().stream()
+				.forEach((b)->{
+					System.out.println(b.getId());
+					System.out.println(b.getTitle());
+					System.out.println(b.getAuthor());
+					System.out.println("--------------------------------");
+				});
+		
+		System.out.println(bookPS.getId());
+		System.out.println(bookPS.getTitle());
+		System.out.println(bookPS.getAuthor());
+		System.out.println("--------------------------------");
+	}
 }
